@@ -54,7 +54,7 @@ bigquery_toolset = BigQueryToolset(
     credentials_config=credentials_config, bigquery_tool_config=tool_config
 )
 
-root_agent = Agent(
+data_agent = Agent(
     model=config.root_agent_model,
     name="data_engineering_agent",
     instruction=f"""
