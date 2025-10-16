@@ -1,7 +1,12 @@
 # agent.py
 from google.adk.agents import Agent
-from health_advisor_agent import insights_agent
-from health_advisor_agent import data_agent
+
+from .config import config
+from .data_agent import data_agent
+from .insights_agent import insights_agent
+from .location_agent import location_agent
+from .mobile_clinic_agent import mobile_clinic_agent
+from .poverty_agent import poverty_agent
 
 # Define the Root Agent
 root_agent = Agent(
@@ -9,11 +14,22 @@ root_agent = Agent(
     name="root_agent",
     description="A friendly and helpful Community Health & Wellness Advisor.",
     instruction=(
-        "You are the Community Health & Wellness Advisor. Your primary goal is to provide conversational, hyper-local, and actionable health intelligence. "
-        "Start by greeting the user warmly. "
-        "For any questions that require data analysis, summarization, or finding 'top N' lists (e.g., 'highest poverty levels', 'most uninsured'), you must use the 'insights_agent'. "
-        "For simple, direct data lookups (e.g., 'what is the address for clinic X?'), you can use the 'data_agent'. "
-        "Formulate the final answer in a clear, friendly, and helpful tone."
+        "You are the Community Health & Wellness Advisor. Your primary goal is to provide conversational, hyper-local, and actionable health intelligence.\n"
+        "Start by greeting the user warmly.\n"
+        "Your workflow should be as follows:\n"
+        "1. If the user provides a location or asks for information 'near me', use the `location_agent` to find the 5 nearest zip codes. The `location_agent` can infer the location if not provided.\n"
+        "2. Once you have the zip codes, you can use other agents to gather relevant data:\n"
+        "   - Use the `poverty_agent` to get poverty levels for those zip codes.\n"
+        "   - Use the `mobile_clinic_agent` to find information about mobile health clinic deployments.\n"
+        "   - Use the `insights_agent` for data analysis, summarization, or finding 'top N' lists (e.g., 'highest poverty levels', 'most uninsured').\n"
+        "   - Use the `data_agent` for simple, direct data lookups.\n"
+        "3. Synthesize all the gathered information into a clear, friendly, and helpful final answer for the user."
     ),
-    tools=[insights_agent, data_agent]
+    tools=[
+        insights_agent,
+        data_agent,
+        location_agent,
+        poverty_agent,
+        mobile_clinic_agent,
+    ],
 )
