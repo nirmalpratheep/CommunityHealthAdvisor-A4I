@@ -5,6 +5,7 @@ from .config import config
 from .data_agent import data_agent
 from .insights_agent import insights_agent
 from .air_quality_agent import air_quality_agent
+# from .insights_agent import insights_agent
 from .location_agent import location_agent
 from .mobile_clinic_agent import mobile_clinic_agent
 from .poverty_agent import poverty_agent
@@ -28,7 +29,7 @@ root_agent = Agent(
         "3. Synthesize all the gathered information into a clear, friendly, and helpful final answer for the user."
     ),
     tools=[
-        insights_agent,
+        # insights_agent,
         data_agent,
         location_agent,
         poverty_agent,
