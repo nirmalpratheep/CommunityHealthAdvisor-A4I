@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .agent import root_agent
+from .root_agent import root_agent
+from .data_agent import data_agent
+from .insights_agent import insights_agent
 
-__all__ = ["root_agent"]
+
+__all__ = ["root_agent", "insights_agent", "data_agent"]
