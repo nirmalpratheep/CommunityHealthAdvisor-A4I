@@ -1,6 +1,6 @@
 import os
 import logging
-import google.cloud.logging
+# import google.cloud.logging
 
 from dotenv import load_dotenv
 
@@ -14,13 +14,16 @@ from langchain_community.tools import WikipediaQueryRun
 from langchain_community.utilities import WikipediaAPIWrapper
 
 
-cloud_logging_client = google.cloud.logging.Client()
-cloud_logging_client.setup_logging()
+# cloud_logging_client = google.cloud.logging.Client()
+# cloud_logging_client.setup_logging()
 
 load_dotenv()
 
 model_name = os.getenv("MODEL")
-print(model_name)
+if not model_name:
+    raise ValueError("MODEL environment variable not set.")
+if not os.getenv("GOOGLE_CLOUD_LOCATION"):
+    raise ValueError("GOOGLE_CLOUD_LOCATION environment variable not set.")
 
 # Tools
 
@@ -167,4 +170,3 @@ root_agent = Agent(
     tools=[append_to_state],
     sub_agents=[film_concept_team],
 )
-
