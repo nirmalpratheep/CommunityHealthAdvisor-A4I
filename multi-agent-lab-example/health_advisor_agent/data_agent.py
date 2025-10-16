@@ -55,7 +55,7 @@ bigquery_toolset = BigQueryToolset(
 )
 
 data_agent = Agent(
-    model=config.root_agent_model,
+    model="gemini-2.5-pro",
     name="data_engineering_agent",
     instruction=f"""
       You are a BigQuery and Dataform ELT expert.

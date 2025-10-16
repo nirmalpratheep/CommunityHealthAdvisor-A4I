@@ -10,7 +10,7 @@ from .poverty_agent import poverty_agent
 
 # Define the Root Agent
 root_agent = Agent(
-    model=config.root_agent_model,
+    model="gemini-2.5-pro",
     name="root_agent",
     description="A friendly and helpful Community Health & Wellness Advisor.",
     instruction=(
