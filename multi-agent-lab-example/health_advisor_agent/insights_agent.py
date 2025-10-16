@@ -1,10 +1,12 @@
 # insights_agent.py
 from google.adk.agents import Agent
-from health_advisor_agent import data_agent  # Import the data_agent instance
+from google.adk.tools import AgentTool
+from .data_agent import data_agent
+from .config import config
 
 # Define the Insights Agent
 insights_agent = Agent(
-    model="gemini-2.5-pro",
+    model=config.root_agent_model,
     name="insights_agent",
     description="A specialized agent that analyzes and summarizes community health data.",
     instruction=(
@@ -13,5 +15,5 @@ insights_agent = Agent(
         "then formulate a human-readable response like 'The areas with the highest poverty rates are X, Y, and Z.' "
         "You must use the data_agent tool to acquire any data needed for your analysis."
     ),
-    tools=[data_agent]
+    tools=[AgentTool(data_agent)]
 )
