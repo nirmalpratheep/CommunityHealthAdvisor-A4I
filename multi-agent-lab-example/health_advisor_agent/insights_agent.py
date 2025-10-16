@@ -4,7 +4,7 @@ from data_agent import data_agent  # Import the data_agent instance
 
 # Define the Insights Agent
 insights_agent = Agent(
-    model="gemini-1.5-flash",
+    model=config.root_agent_model,
     name="insights_agent",
     description="A specialized agent that analyzes and summarizes community health data.",
     instruction=(

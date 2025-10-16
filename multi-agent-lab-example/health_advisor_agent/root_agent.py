@@ -5,7 +5,7 @@ from data_agent import data_agent
 
 # Define the Root Agent
 root_agent = Agent(
-    model="gemini-1.5-pro",  # Use a more powerful model for orchestration
+    model=config.root_agent_model,
     name="root_agent",
     description="A friendly and helpful Community Health & Wellness Advisor.",
     instruction=(
