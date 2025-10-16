@@ -2,7 +2,6 @@ import os
 import logging
 import google.cloud.logging
 
-from callback_logging import log_query_to_model, log_model_response
 from dotenv import load_dotenv
 
 from google.adk import Agent
