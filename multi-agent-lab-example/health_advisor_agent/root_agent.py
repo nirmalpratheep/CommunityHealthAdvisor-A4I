@@ -10,6 +10,7 @@ from .air_quality_agent import air_quality_agent
 from .location_agent import location_agent
 from .mobile_clinic_agent import mobile_clinic_agent
 from .poverty_agent import poverty_agent
+from google.adk.tools import agent_tool
 
 # Define the Root Agent
 root_agent = Agent(
@@ -30,11 +31,12 @@ root_agent = Agent(
         "3. Synthesize all the gathered information into a clear, friendly, and helpful final answer for the user."
     ),
     tools=[
-        AgentTool(insights_agent),
-        AgentTool(data_agent),
-        AgentTool(location_agent),
-        AgentTool(poverty_agent),
-        AgentTool(mobile_clinic_agent),
-        AgentTool(air_quality_agent),
+        agent_tool.AgentTool(agent=insights_agent),
+        agent_tool.AgentTool(agent=data_agent),
+        agent_tool.AgentTool(agent=insights_agent),
+        agent_tool.AgentTool(agent=location_agent),
+        agent_tool.AgentTool(agent=poverty_agent),
+        agent_tool.AgentTool(agent=mobile_clinic_agent),
+        agent_tool.AgentTool(agent=air_quality_agent)
     ],
 )
