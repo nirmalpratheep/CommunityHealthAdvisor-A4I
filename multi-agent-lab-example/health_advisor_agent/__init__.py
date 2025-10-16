@@ -14,7 +14,6 @@
 
 from .root_agent import root_agent
 from .data_agent import data_agent
-from .insights_agent import insights_agent
 
 
-__all__ = ["root_agent", "insights_agent", "data_agent"]
+__all__ = ["root_agent", "data_agent"]
