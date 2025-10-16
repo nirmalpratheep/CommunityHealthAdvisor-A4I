@@ -1,5 +1,6 @@
 # agent.py
 from google.adk.agents import Agent
+from google.adk.tools import AgentTool
 
 from .config import config
 from .data_agent import data_agent
@@ -29,11 +30,11 @@ root_agent = Agent(
         "3. Synthesize all the gathered information into a clear, friendly, and helpful final answer for the user."
     ),
     tools=[
-        # insights_agent,
-        data_agent,
-        location_agent,
-        poverty_agent,
-        mobile_clinic_agent,
-        air_quality_agent,
+        AgentTool(insights_agent),
+        AgentTool(data_agent),
+        AgentTool(location_agent),
+        AgentTool(poverty_agent),
+        AgentTool(mobile_clinic_agent),
+        AgentTool(air_quality_agent),
     ],
 )
