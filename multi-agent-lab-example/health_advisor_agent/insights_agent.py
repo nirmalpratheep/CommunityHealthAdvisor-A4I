@@ -1,6 +1,6 @@
 # insights_agent.py
 from google.adk.agents import Agent
-from data_agent import data_agent  # Import the data_agent instance
+from health_advisor_agent import data_agent  # Import the data_agent instance
 
 # Define the Insights Agent
 insights_agent = Agent(

@@ -119,7 +119,7 @@ insights_creator_agent = Agent(
     output_schema=ActionableInsight,
 )
 
-insights_agent = SequentialAgent(
+insights_agent_2 = SequentialAgent(
     name="health_insights_pipeline",
     sub_agents=[data_structuring_agent, researcher_agent, insights_creator_agent],
 )

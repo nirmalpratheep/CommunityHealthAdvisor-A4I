@@ -1,7 +1,7 @@
 # agent.py
 from google.adk.agents import Agent
-from insights_agent import insights_agent
-from data_agent import data_agent
+from health_advisor_agent import insights_agent
+from health_advisor_agent import data_agent
 
 # Define the Root Agent
 root_agent = Agent(
