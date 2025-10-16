@@ -22,13 +22,19 @@ from pydantic import BaseModel, Field
 load_dotenv()
 
 
-class HealthAnalysis(BaseModel):
-    """Defines the structured output for health data analysis."""
-    identified_issues: List[str] = Field(
-        description="A list of potential health issues identified from the text."
+class HealthEvent(BaseModel):
+    """Represents a single health issue and its specific location."""
+    issue: str = Field(
+        description="A single, specific health issue identified from the text, e.g., 'flu outbreak' or 'lack of clinics'."
     )
-    affected_locations: List[str] = Field(
-        description="A list of zip codes mentioned in the report."
+    locations: List[str] = Field(
+        description="A list of one or more locations where this specific issue is occurring. Locations can be zip codes, neighborhoods, city districts, or general areas (e.g., 'downtown', 'the waterfront')."
+    )
+
+class HealthAnalysis(BaseModel):
+    """A collection of health events found in the report."""
+    health_events: List[HealthEvent] = Field(
+        description="A list of health events, each linking a specific issue to its affected locations."
     )
 
 
@@ -54,16 +60,21 @@ data_structuring_agent = Agent(
     description="Structures raw health data using an LLM.",
     instruction="""You are a data structuring specialist for a public health organization.
         Analyze the unstructured health data provided in the '{unstructured_health_data}' state variable.
-        Your goal is to extract key health issues and any mentioned zip codes. The issues can be wide-ranging.
+        Your goal is to extract key health issues and link them to the specific locations mentioned in relation to them.
+        A location can be a zip code, a neighborhood, a district, or a general area (e.g., "downtown", "Northside", "the industrial park").
+        The issues can be wide-ranging.
         Examples of signals to look for include, but are not limited to:
         - Healthcare Access issues (e.g., underserved areas, uninsured populations, lack of clinics)
         - Environmental Risks (e.g., pollution, air/water quality, heatwaves)
         - Disease Outbreaks (e.g., flu clusters, infectious disease signals)
         - Emerging Crises (e.g., ER surges, public safety alerts)
-        Your output MUST be a JSON object that conforms to the following schema:
+        Your output MUST be a JSON object that conforms to the HealthAnalysis schema. For each distinct issue, create a HealthEvent object containing the issue and a list of all locations associated with it.
+        Example output format:
         {
-            "identified_issues": ["issue1", "issue2"],
-            "affected_locations": ["zip1", "zip2"]
+            "health_events": [
+                {"issue": "flu outbreak", "locations": ["90210", "90211"]},
+                {"issue": "air quality concerns", "locations": ["downtown", "the industrial park"]}
+            ]
         }
         Respond ONLY with the JSON object.""",
     output_schema=HealthAnalysis,
@@ -76,11 +87,10 @@ researcher_agent = Agent(
     description="Performs a Google search on the identified health issue.",
     instruction="""You are a research assistant for a public health organization.
         Based on the structured analysis provided in the '{structured_analysis}' state variable,
-        your task is to find relevant, localized context.
-        For each issue in 'structured_analysis.identified_issues', perform a Google search.
-        If 'structured_analysis.affected_locations' is not empty, combine the issue with the primary location to get localized results.
-        If no locations are available, search for the issue more broadly.
-        For example, if the issue is 'Disease Outbreak' and the location is '90210', search for 'Disease Outbreak 90210'.
+        your task is to find relevant, localized context for each health event.
+        Iterate through each event in 'structured_analysis.health_events'. For each event, perform a targeted Google search
+        combining the 'issue' with each 'location' in its 'locations' list.
+        For example, if an event is `{"issue": "flu outbreak", "locations": ["90210", "90211"]}`, you should search for "flu outbreak 90210" and "flu outbreak 90211".
         Your goal is to find recent news, official reports, or community discussions about this specific issue in that area.
         """,
     tools=[google_search],
