@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # insights_agent.py
 from google.adk.agents import Agent
 from google.adk.tools import AgentTool
@@ -20,6 +21,10 @@ insights_agent = Agent(
 =======
 """This module defines the `insights_agent` for health data analysis.
 
+=======
+"""This module defines the `insights_agent` for health data analysis.
+
+>>>>>>> f2ab09bd7ecf1b7643993a8f3449f0a00e593351
 The `insights_agent` orchestrates a sequential workflow. It expects
 to receive unstructured health data as a string in the session state under the
 key 'unstructured_health_data'.
@@ -118,6 +123,9 @@ data_structuring_agent = Agent(
 #         "You must use the data_agent tool to acquire any data needed for your analysis."
 #     ),
 #     tools=[AgentTool(data_agent)]
+<<<<<<< HEAD
+>>>>>>> f2ab09bd7ecf1b7643993a8f3449f0a00e593351
+=======
 >>>>>>> f2ab09bd7ecf1b7643993a8f3449f0a00e593351
 )
 

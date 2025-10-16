@@ -32,12 +32,15 @@ root_agent = Agent(
     ),
     tools=[
 <<<<<<< HEAD
+<<<<<<< HEAD
         AgentTool(insights_agent),
         AgentTool(data_agent),
         AgentTool(location_agent),
         AgentTool(poverty_agent),
         AgentTool(mobile_clinic_agent),
 =======
+=======
+>>>>>>> f2ab09bd7ecf1b7643993a8f3449f0a00e593351
         agent_tool.AgentTool(agent=insights_agent),
         agent_tool.AgentTool(agent=data_agent),
         agent_tool.AgentTool(agent=insights_agent),
@@ -45,6 +48,9 @@ root_agent = Agent(
         agent_tool.AgentTool(agent=poverty_agent),
         agent_tool.AgentTool(agent=mobile_clinic_agent),
         agent_tool.AgentTool(agent=air_quality_agent)
+<<<<<<< HEAD
+>>>>>>> f2ab09bd7ecf1b7643993a8f3449f0a00e593351
+=======
 >>>>>>> f2ab09bd7ecf1b7643993a8f3449f0a00e593351
     ],
 )
